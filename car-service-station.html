@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Genrate Bill for Car Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Tenor Sans', sans-serif;
+        }
+        
+        main{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        main h1{
+            color: #038496;
+        }
+       
+        .left-section , .right-section , .billing-receipt{
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+      
+      
+        .billing-receipt{
+            display: none;
+            width: 300px;
+            min-height: 200px;
+            border: 2px solid black;
+            padding: 20px;
+            margin: 150px;
+        }
+        .billing-receipt p{
+            margin-bottom: 15px;
+        }
+        #check{
+            background-color: #038496;
+            color: white;
+            cursor: pointer;
+            padding: 10px 30px;
+            border-radius: 30px;
+        }
+        .left-section img{
+            margin-left: -1500px;
+            transition: all 1.5s ease-in-out 0.5s;
+        }
+        select , select:focus{
+            border: none;
+            border-bottom: 2px solid #038496;
+            width: 60%;
+        }
+        #highCharges{
+            color: red;
+        }
+        
+
+        @media only screen and (max-width:769px) {
+            main{
+                flex-direction: column;
+            }
+            .left-section img{
+                height: 300px;
+            }
+            .left-section, .right-section, .billing-receipt {
+            align-items: center;
+            }
+            main h1 {
+                font-size: 20px;
+                text-align: center;
+            }
+            .billing-receipt {
+                margin: 30px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <main>
+        <div class="left-section">
+            <img src="images/car-repair-service-professional-team-presentation.webp" alt="Car Service Station" height="750px" id="serviceImg">
+        </div>
+        <div class="right-section" id="rightSection">
+            <h1>For Any Type of Service You want!</h1> <br>
+            <form>
+                <label for="types-of-car" style="color: #FF1621;"> <strong>Type of Car</strong> </label>
+                <select name="car-type" id="carType">
+                    <option>Select</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV"> SUV</option>
+
+                </select>
+                <br> <br> 
+                <label for="services" style="color: #FF1621;"><strong>Select Services</strong> </label> <br>
+               <input type="checkbox" name="Basic Servicing" id="BS01"> <label>Basic Servicing</label>  <br>
+               <input type="checkbox" name="Engine Fixing" id="EF01">  <label>Engine Fixing</label> <br>
+               <input type="checkbox" name="Clutch Fixing" id="CF01">  <label>Clutch Fixing</label> <br>      
+               <input type="checkbox" name="Brake Fixing" id="BF01">  <label>Brake Fixing</label> <br>          
+               <input type="checkbox" name="Gear Fixing" id="GF01">  <label>Gear Fixing</label> <br>     
+               <br> <br>      
+
+                <div id="check">Check Service Charges</div>
+                
+                
+                    
+            </form>
+        </div>
+        
+        <div class="billing-receipt" id="billingReceipt">
+            <h3>Service Charges</h3> <br>
+            <p><strong>Type of Car: </strong> <span id="carName"></span></p>
+            <p><strong>Services: </strong> <span id="services"></span></p>
+            <p><strong>Service Codes: </strong> <span id="serviceCodes"></span></p>
+            <p><strong>Charges for <span id="chargesFor"></span> </strong> <span id="chargesAmt"></span></p>
+            <p><strong>Total Bill: </span> </strong> <span id="totalBill"></span></p>
+            <p> <strong id="highCharges"></strong> </p>
+    
+           
+        </div>
+    </main>
+    
+
+
+
+    <script>
+        let carType = document.getElementById("carType").value;
+
+        let checkBoxBS = document.getElementById("BS01");
+            let checkBoxEF = document.getElementById("EF01");
+            let checkBoxCF = document.getElementById("CF01");
+            let checkBoxBF = document.getElementById("BF01");
+            let checkBoxGF = document.getElementById("GF01");
+
+
+        let serviceImg = document.getElementById("serviceImg");
+        serviceImg.addEventListener("load",()=>{
+            serviceImg.style.marginLeft="0px";
+            
+        });
+
+
+
+        let check = document.getElementById("check");
+        check.addEventListener("click", () =>{
+
+            if(checkBoxBS.checked == false && checkBoxEF.checked == false && checkBoxCF.checked == false && checkBoxBF.checked == false && checkBoxGF.checked == false ){
+                alert("Please select services!");
+            }
+         
+            let rightSection = document.getElementById("rightSection").style.display="none";
+            let billingReceipt = document.getElementById("billingReceipt").style.display="block";
+            
+
+            let carName = document.getElementById("carName");
+
+            
+            if(carType == "Sedan"){
+                carName.innerText ="Sedan";
+            }else if(carType == "Hatchback"){
+                carName.innerText ="Hatchback";
+            }
+            else if(carType == "SUV"){
+                carName.innerText ="SUV";
+            }
+            else{
+                alert("Please Select Type of Car!");
+            }
+            
+            
+            
+           
+
+            let services = document.getElementById("services");
+            let chargesFor = document.getElementById("chargesFor");
+
+
+            if(checkBoxBS.checked == true){
+                let createTextNode= document.createTextNode(" Basic Servicing,");
+                services.appendChild(createTextNode);
+
+                let serviceCodes = document.getElementById("serviceCodes");
+                let createTextServiceCodes= document.createTextNode(" BS01,");
+                serviceCodes.appendChild(createTextServiceCodes);
+
+                
+                
+                let createTextNode2= document.createTextNode(" Basic Servicing,");
+                chargesFor.appendChild(createTextNode2);
+
+            }
+            if(checkBoxEF.checked == true){
+                // services.innerText ="Engine Fixing";
+                let createTextNode= document.createTextNode(" Engine Fixing,");
+                services.appendChild(createTextNode);
+
+                let createTextServiceCodes= document.createTextNode(" EF01,");
+                serviceCodes.appendChild(createTextServiceCodes);
+
+                
+                
+                let createTextNode2= document.createTextNode(" Engine Fixing,");
+                chargesFor.appendChild(createTextNode2);
+            }
+            if(checkBoxCF.checked == true){
+                
+                let createTextNode= document.createTextNode(" Clutch Fixing,");
+                services.appendChild(createTextNode);
+
+                let createTextServiceCodes= document.createTextNode(" CF01,");
+                serviceCodes.appendChild(createTextServiceCodes);
+
+                
+                
+                let createTextNode2= document.createTextNode(" Clutch Fixing,");
+                chargesFor.appendChild(createTextNode2);
+
+            }
+            if(checkBoxBF.checked == true){
+                
+                let createTextNode= document.createTextNode(" Brake Fixing,");
+                services.appendChild(createTextNode);
+
+                let createTextServiceCodes= document.createTextNode(" BF01,");
+                serviceCodes.appendChild(createTextServiceCodes);
+
+                
+                
+                let createTextNode2= document.createTextNode(" Brake Fixing,");
+                chargesFor.appendChild(createTextNode2);
+            }
+             if(checkBoxGF.checked == true){
+                
+                let createTextNode= document.createTextNode(" Gear Fixing,");
+                services.appendChild(createTextNode);
+
+                let createTextServiceCodes= document.createTextNode(" GF01,");
+                serviceCodes.appendChild(createTextServiceCodes);
+
+                
+                
+                let createTextNode2= document.createTextNode(" Gear Fixing,");
+                chargesFor.appendChild(createTextNode2);
+            }
+            
+
+
+            //for the charges for service
+            var totalBillAmt = 0;
+            
+            let chargesAmt = document.getElementById("chargesAmt");
+
+
+            if(checkBoxBS.checked == true && carType == "Hatchback"){
+               
+                let createTextNode= document.createTextNode(" ₹ 2000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 2000;
+            } 
+
+            if(checkBoxEF.checked == true && carType == "Hatchback"){
+                
+                let createTextNode= document.createTextNode(" ₹ 5000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 5000;
+
+            } 
+
+            if(checkBoxCF.checked == true && carType == "Hatchback"){
+                
+                let createTextNode= document.createTextNode(" ₹ 2000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 2000;
+
+            } 
+
+            if(checkBoxBF.checked == true && carType == "Hatchback"){
+                
+                let createTextNode= document.createTextNode(" ₹ 1000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 1000;
+
+            } 
+
+            if(checkBoxGF.checked == true && carType == "Hatchback"){
+                
+                let createTextNode= document.createTextNode(" ₹ 3000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 3000;
+
+            } 
+
+            if(checkBoxBS.checked == true && carType == "Sedan"){
+                
+                let createTextNode= document.createTextNode(" ₹ 4000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 4000;
+
+            } 
+
+            if(checkBoxEF.checked == true && carType == "Sedan"){
+                
+                let createTextNode= document.createTextNode(" ₹ 8000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 8000;
+
+            } 
+
+            if(checkBoxCF.checked == true && carType == "Sedan"){
+               
+                let createTextNode= document.createTextNode(" ₹ 4000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 4000;
+
+            } 
+
+            if(checkBoxBF.checked == true && carType == "Sedan"){
+                
+                let createTextNode= document.createTextNode(" ₹ 1500,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 1500;
+
+            } 
+
+            if(checkBoxGF.checked == true && carType == "Sedan"){
+                
+                let createTextNode= document.createTextNode(" ₹ 6000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 6000;
+
+            } 
+
+            if(checkBoxBS.checked == true && carType == "SUV"){
+                
+                let createTextNode= document.createTextNode(" ₹ 5000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 5000;
+
+            } 
+
+            if(checkBoxEF.checked == true && carType == "SUV"){
+               
+                let createTextNode= document.createTextNode(" ₹ 10000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 10000;
+
+            } 
+
+            if(checkBoxCF.checked == true && carType == "SUV"){
+                
+                let createTextNode= document.createTextNode(" ₹ 6000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 6000;
+
+            } 
+
+            if(checkBoxBF.checked == true && carType == "SUV"){
+              
+                let createTextNode= document.createTextNode(" ₹ 2500,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 2500;
+
+            } 
+
+            if(checkBoxGF.checked == true && carType == "SUV"){
+                
+                let createTextNode= document.createTextNode(" ₹ 8000,");
+                chargesAmt.appendChild(createTextNode);
+                totalBillAmt= totalBillAmt + 8000;
+
+            }
+
+            let totalBill = document.getElementById("totalBill");
+            let highCharges = document.getElementById("highCharges");
+
+            
+            totalBill.innerText=totalBillAmt;
+
+            if(totalBillAmt > 10000){
+                highCharges.innerText = "Your Total Service Bill Amount is more than ₹ 10000!";
+                // alert("Your Total Service Bill Amount is more than ₹ 10000rs");
+            }
+            // alert(totalBillAmt);
+
+        });
+
+        
+    </script>
+</body>
+</html>

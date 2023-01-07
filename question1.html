@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Sorting</title>
+</head>
+<body>
+    
+    <script>
+        // Write a program that takes as input an array of positive and negative numbers (0 excluded). The objective is to 
+        // return those items from the array whose sum is 0. If no such items exist return “No Elements found”
+
+       
+        // let arr =  [-4, 1, 3, -2, -1];
+        let arr =  [4, 3, -2, -1];
+        console.log("Values an array of positive and negative numbers (0 excluded) = "+ arr);
+        alert("Values an array of positive and negative numbers (0 excluded) = "+ arr);
+        
+        
+        var ansList = [];
+
+        checkArr(arr,0,0,ansList);
+
+        function checkArr(arr, index, target, ansList){
+            for(let i= index; i<arr.length; i++){
+                var current = arr[i];
+                ansList.push(current);
+                var newTarget = target-current;
+                if(newTarget == 0){
+                    return true;
+                }
+              let found =  Boolean(checkArr(arr, index+1, newTarget, ansList));
+                if(found){
+                    return true;
+                }
+                //Removing the last element of an ArrayList
+                ansList.pop();
+                index+=1;
+            }
+            return false;
+        }
+
+        
+        if(ansList == 0){
+            console.log("No Elements found");
+            alert("No Elements found");
+        }else{
+            console.log("Array itmes whose sum is 0 = " + ansList);
+            alert("Array itmes whose sum is 0 = " + ansList);
+
+        }
+
+       
+        
+
+
+
+    </script>
+</body>
+</html>
